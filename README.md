@@ -11,13 +11,13 @@ running ad-hoc analysis and exploratory visualizations.
 Usage
 -----
 
-    install.package('wethepeople')
+    install.packages('wethepeople')
 
     library(wethepeople)
     example(wethepeople)
 
     # Load petitions
-    client <- WeThePeople('MY_API_KEY')
+    client <- WeThePeopleClientAPI()
     petitions <- client$petitions()
 
     # Make some eye candy
