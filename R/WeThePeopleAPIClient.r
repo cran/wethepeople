@@ -2,6 +2,7 @@
 #' see RCurl
 #' @return WeThePeople Object with methods for interfacing with the API
 #' @importFrom RCurl getForm
+#' @importFrom rjson fromJSON
 #' @export
 #' @examples
 #' client <- WeThePeopleAPIClient()
@@ -38,6 +39,8 @@ WeThePeopleAPIClient <- function() {
     mock=TRUE) {
 
     BATCH_SIZES <- list(signatures=1000, users=100, petitions=100)
+    # Set ssl.verifypeer = FALSE to work around a problem with Windows thinking the SSL Certificate is bad
+    # See http://www.r-bloggers.com/update-to-data-on-github-post-solution-to-an-rcurl-problem/
     CURL_OPTS <- list(ssl.verifypeer = FALSE)
 
     result <- NULL
@@ -56,11 +59,8 @@ WeThePeopleAPIClient <- function() {
 
       message("Getting ", resource, " from the We The People API. URL: ", fully_qualified_url, " PARAMS: ", toJSON(params))
 
-      # Set ssl.verifypeer = FALSE to work around a problem with Windows thinking the SSL Certificate is bad
-      # See http://www.r-bloggers.com/update-to-data-on-github-post-solution-to-an-rcurl-problem/
-
       raw_json <- getForm(fully_qualified_url, .opts=CURL_OPTS, .params=params)
-      resources_raw <- fromJSON(raw_json)
+      resources_raw <- fromJSON(raw_json, unexpected.escape = "skip")
 
       result_count <- length(resources_raw$results)
       message("Loaded ", result_count, " resources")
@@ -122,7 +122,6 @@ WeThePeopleAPIClient <- function() {
   #' Retrieves signatures for all of the given petitions.
   signatures <- function(petitions) {
     count <- 0
-    total <- nrow(petitions)
     ddply(
       petitions,
       .(id),

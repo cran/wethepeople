@@ -14,7 +14,7 @@ Description: Implements an R client for the We The People petitions
         requests to 10/second. For bulk data loading, please use the
         data dump provided by the White House:
         https://petitions.whitehouse.gov/developers
-Version: 0.5
+Version: 0.6.1
 License: GPL-3
 Author: Yoni Ben-Meshulam
 Maintainer: Yoni Ben-Meshulam <yoni@opower.com>
@@ -27,7 +27,9 @@ Collate: 'melt_issues.r' 'plot_issues_over_time.r'
         'plot_status_by_creation.r' 'plot_issues_pending_response.r'
         'plot_signature_count.r' 'plot_signatures_by_time_of_day.r'
         'WeThePeopleAPIClient.r' 'WeThePeopleMySQLClient.r'
-Packaged: 2013-06-04 14:56:20 UTC; yoniben
+        'plot_issue_signatures.r' 'WeTheEntitiesAPIClient.r'
+        'plot_sentiment_analysis.r' 'plot_sentiment_density.r'
+Packaged: 2013-06-24 14:52:31 UTC; yoni
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-06-04 18:03:24
+Date/Publication: 2013-06-24 17:19:07
